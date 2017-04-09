@@ -14,8 +14,8 @@ have \code{YEAR}, \code{MONTH}, \code{DAY}, \code{LATITUDE} and
 }
 \value{
 A \code{tbl_df} with the same supplied data, but with \code{LATITUDE}
-and \code{LONGITUDE} converted from \code{character} to \code{numeric}, and
-a new column \code{DATE}.
+  and \code{LONGITUDE} converted from \code{character} to \code{numeric}, and
+  a new column \code{DATE}.
 }
 \description{
 \code{eq_clean_data} takes a data frame of NOAA earthquake data and cleans it
@@ -25,11 +25,11 @@ up for further analysis.
 This function takes a data frame of NOAA earthquake data, which may be
 obtained from NOAA's
 \href{https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1}{Significant
-EarthQuake Database}, or loaded into the envirnoment with
-\code{data(quakes)} (April 1, 2017 snapshot), and cleans it up for further
-analysis.  In particular, it creates a \code{DATE} feature by combing the
-\code{YEAR}, \code{MONTH}, and \code{DAY} features, and makes sure the
-\code{LATITUDE} and \code{LONGITUDE} features are of type \code{numeric}.
+EarthQuake Database}, or loaded into the envirnoment with \code{data(quakes)}
+(April 1, 2017 snapshot), and cleans it up for further analysis.  In
+particular, it creates a \code{DATE} feature by combing the \code{YEAR},
+\code{MONTH}, and \code{DAY} features, and makes sure the \code{LATITUDE} and
+\code{LONGITUDE} features are of type \code{numeric}.
 
 For the \code{DATE} variable, note that R does not handle years before 1CE
 correctly (see documentation for \code{\link[base]{as.Date}}). This function
