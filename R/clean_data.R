@@ -36,6 +36,13 @@
 #'
 eq_clean_data <- function(data) {
 
+  required_vars <- c('LONGITUDE', 'LATITUDE', 'MONTH', 'DAY', 'YEAR')
+  purrr::map(required_vars, function(rv) {
+    if(!(rv %in% names(data))) {
+      stop('Missing required variable: ', rv)
+    }
+  })
+
   data <- data %>%
     dplyr::mutate(
       LONGITUDE = as.numeric(LONGITUDE),
@@ -68,8 +75,8 @@ eq_clean_data <- function(data) {
         date <- as.Date(paste(y, m, d, sep = '-'), '%Y-%m-%d')
       }
       date
-    })) %>%  # date comes out of purrr::map as numeric
-    dplyr::mutate(DATE = unlist(DATE),
+    })) %>%
+    dplyr::mutate(DATE = unlist(DATE), # date comes out of purrr::map as numeric
                   DATE = as.Date(DATE, origin = '1970-01-01'))
 
   data
