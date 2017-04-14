@@ -19,7 +19,7 @@ A \code{tbl_df} with the same supplied data, but with the
   the remainder of the words in \code{LOCATION_NAME} to Title Case.
 }
 \description{
-\code{eq_clean_data} takes a data frame of NOAA earthquake data and cleans
+\code{eq_location_clean} takes a data frame of NOAA earthquake data and cleans
 the \code{LOCATION_NAME} field.
 }
 \details{

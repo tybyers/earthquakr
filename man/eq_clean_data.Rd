@@ -29,7 +29,9 @@ EarthQuake Database}, or loaded into the envirnoment with \code{data(quakes)}
 (April 1, 2017 snapshot), and cleans it up for further analysis.  In
 particular, it creates a \code{DATE} feature by combing the \code{YEAR},
 \code{MONTH}, and \code{DAY} features, and makes sure the \code{LATITUDE} and
-\code{LONGITUDE} features are of type \code{numeric}.
+\code{LONGITUDE} features are of type \code{numeric}.  Also converts the
+\code{DEATHS} and \code{EQ_PRIMARY} (Richter scale value) to type
+\code{numeric}.
 
 For the \code{DATE} variable, note that R does not handle years before 1CE
 correctly (see documentation for \code{\link[base]{as.Date}}). This function
