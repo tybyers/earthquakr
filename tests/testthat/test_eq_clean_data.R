@@ -21,18 +21,18 @@ test_that('throws error if do not have right columns', {
 
   expect_error(eq_clean_data(df %>% dplyr::select(-YEAR)),
                'Missing required variable: YEAR')
-
   expect_error(eq_clean_data(df %>% dplyr::select(-MONTH)),
                'Missing required variable: MONTH')
-
   expect_error(eq_clean_data(df %>% dplyr::select(-DAY)),
                'Missing required variable: DAY')
-
   expect_error(eq_clean_data(df %>% dplyr::select(-LATITUDE)),
                'Missing required variable: LATITUDE')
-
   expect_error(eq_clean_data(df %>% dplyr::select(-LONGITUDE)),
                'Missing required variable: LONGITUDE')
+  expect_error(eq_clean_data(df %>% dplyr::select(-DEATHS)),
+               'Missing required variable: DEATHS')
+  expect_error(eq_clean_data(df %>% dplyr::select(-EQ_PRIMARY)),
+               'Missing required variable: EQ_PRIMARY')
 
   # remove a column we don't care much about
   expect_is(eq_clean_data(df %>% dplyr::select(-MINUTE)), 'tbl_df')
