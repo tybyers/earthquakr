@@ -70,7 +70,9 @@ theme_eq <- function(base_size = 11, base_family = 'sans') {
 }
 
 
-eq_timeline <- function(df, xmin, xmax) {
+eq_timeline <- function(df,
+                        xmin = '2000-01-01',
+                        xmax = '2018-01-01', label_n = 0) {
   p <- df %>%
     filter(DATE >= xmin, DATE <= xmax) %>%
     ggplot() + geom_timeline(aes(x = DATE, y = COUNTRY, color = DEATHS,
