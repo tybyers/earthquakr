@@ -22,12 +22,13 @@
 #'
 #' @param data A data frame of NOAA significant earthquake data, similar to what
 #'   can be loaded with \code{data(quakes)}. At a minimum, the data needs to
-#'   have \code{YEAR}, \code{MONTH}, \code{DAY}, \code{LATITUDE} and
-#'   \code{LONGITUDE} features.
+#'   have \code{YEAR}, \code{MONTH}, \code{DAY}, \code{LATITUDE},
+#'   \code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY} features.
 #'
-#' @return A \code{tbl_df} with the same supplied data, but with \code{LATITUDE}
-#'   and \code{LONGITUDE} converted from \code{character} to \code{numeric}, and
-#'   a new column \code{DATE}.
+#' @return A \code{tbl_df} with the same supplied data, but with
+#'   \code{LATITUDE}, \code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY}
+#'   converted from \code{character} to \code{numeric}, and a new column
+#'   \code{DATE}.
 #'
 #' @export
 #'
@@ -35,10 +36,10 @@
 #'
 #' data(quakes)
 #' quakes_clean <- eq_clean_data(quakes)
-#'
 eq_clean_data <- function(data) {
 
-  required_vars <- c('LONGITUDE', 'LATITUDE', 'MONTH', 'DAY', 'YEAR')
+  required_vars <- c('LONGITUDE', 'LATITUDE', 'MONTH', 'DAY', 'YEAR',
+                     'DEATHS', 'EQ_PRIMARY')
   purrr::map(required_vars, function(rv) {
     if(!(rv %in% names(data))) {
       stop('Missing required variable: ', rv)
