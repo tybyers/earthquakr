@@ -3,9 +3,10 @@ quakes <- eq_load_clean_data()
 
 GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                    required_aes = c('x'),
-                   default_aes = ggplot2::aes(size = 1, color = 'grey50',
-                     alpha = 0.5, shape = 19, y = 0, stroke = 1,
-                     fill = 'grey'
+                   default_aes = ggplot2::aes(
+                     size = 1, color = 'grey50',
+                     alpha = 0.5, shape = 19, y = 0,
+                     stroke = 1, fill = 'black'
                    ),
                    draw_key = ggplot2::draw_key_point,
                    draw_panel = function(data, panel_scales, coord) {
@@ -13,11 +14,9 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                      #browser()
 
                      coords <- coord$transform(data, panel_scales)
-                     #coords <- coords %>%
-                     # rename(`Richter scale value` = EQ_PRIMARY)
 
-                     ## Let's print out the structure of the 'coords' object
-                     str(coords)
+                     # resize the coordinates' size to more reasonable values
+                     coords$size <- coords$size / max(coords$size) * 1.5
 
                      #browser()
                      ## Construct a grid grob
@@ -26,10 +25,9 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                        y = coords$y,
                        pch = coords$shape,
                        gp = grid::gpar(
-                         color = unique(coords$colour),
+                         col = coords$colour,
                          alpha = coords$alpha,
-                         size = coords$size,
-                         fontsize = coords$fontsize
+                         cex = coords$size
                        )
                      )
                    }
@@ -48,54 +46,37 @@ geom_timeline <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-eq_data_transform <- function(data) {
-  browser()
-  data
-}
 timeline_example <- function(country) {
   qs <- eq_load_clean_data() %>%
-    dplyr::filter(COUNTRY %in% country)
+    filter(COUNTRY %in% country)
 
   # maybe need to clean this in the clean_data function, but
   # test it out here first
-  qs <- qs %>%
-    dplyr::mutate(DEATHS = as.numeric(DEATHS),
-                  EQ_PRIMARY = as.numeric(EQ_PRIMARY))
-  #browser()
-  #ggplot(qs) + geom_timeline(aes(xmin = as.Date('2000-01-01'),
-  #                                   xmax = as.Date('2016-01-01'),
-  #                               fill = DEATHS, x = DATE,
-  #                               size = EQ_MAG_ML
-  #                               ))
-
-  #ggplot(qs) + geom_timeline(aes(x = DATE))   # works ok
-  #ggplot(qs) + geom_timeline(aes(x = DATE, xmin = as.Date('2000-01-01'),
-  #                               xmax = as.Date('2016-01-01')))
-
-  # maybe the x-min and xmax dates should be decided as scale_x...
-
-  # ggplot(qs) + geom_timeline(aes(x = DATE, y = COUNTRY,
-  #                                color = DEATHS, size = EQ_PRIMARY)) +
-  #   scale_x_date(limits = c(as.Date('2000-01-01'), as.Date('2016-01-01'))) +
-  #   theme_minimal()
-
-  # ggplot(qs) + geom_timeline(aes(x = DATE, y = COUNTRY,
-  #                                color = DEATHS, size = EQ_PRIMARY,
-  #                                xmin = as.Date('2000-01-01'),
-  #                                xmax = as.Date('2016-01-01'))) +
-  #   #scale_x_date(limits = c(as.Date('2000-01-01'), as.Date('2016-01-01'))) +
-  #   theme_minimal()
 
   eq_timeline(qs, '2000-01-01', '2016-01-01')
 }
 
+theme_eq <- function(base_size = 11, base_family = 'sans') {
+  eq <- (ggplot2::theme_minimal(base_size = base_size,
+                                base_family = base_family) +
+             theme(legend.position = 'bottom',
+                   panel.grid.major.x = element_blank(),
+                   panel.grid.minor.x = element_blank(),
+                   axis.ticks.x = element_line(),
+                   axis.line.x = element_line())
+  )
+
+  eq
+}
+
+
 eq_timeline <- function(df, xmin, xmax) {
-  p <- df <- df %>%
+  p <- df %>%
     filter(DATE >= xmin, DATE <= xmax) %>%
     ggplot() + geom_timeline(aes(x = DATE, y = COUNTRY, color = DEATHS,
                                  size = EQ_PRIMARY)) +
-    scale_size_continuous(name = 'Richter scale value', position = 'bottom') +
+    scale_size_continuous(name = 'Richter scale value') +
     scale_color_continuous(name = '# of Deaths') +
-    theme_minimal()
+    theme_eq()
   print(p)
 }
