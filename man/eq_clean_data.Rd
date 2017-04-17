@@ -10,13 +10,14 @@ eq_clean_data(data)
 \item{data}{A data frame of NOAA significant earthquake data, similar to what
 can be loaded with \code{data(quakes)}. At a minimum, the data needs to
 have \code{YEAR}, \code{MONTH}, \code{DAY}, \code{LATITUDE},
-\code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY} features.}
+\code{LONGITUDE}, \code{DEATHS}, \code{TOTAL_DEATHS}, and \code{EQ_PRIMARY}
+features.}
 }
 \value{
 A \code{tbl_df} with the same supplied data, but with
-  \code{LATITUDE}, \code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY}
-  converted from \code{character} to \code{numeric}, and a new column
-  \code{DATE}.
+  \code{LATITUDE}, \code{LONGITUDE}, \code{DEATHS}, \code{TOTAL_DEATHS}, and
+  \code{EQ_PRIMARY} converted from \code{character} to \code{numeric}, and a
+  new column \code{DATE}.
 }
 \description{
 \code{eq_clean_data} takes a data frame of NOAA earthquake data and cleans it
@@ -31,8 +32,8 @@ EarthQuake Database}, or loaded into the envirnoment with \code{data(quakes)}
 particular, it creates a \code{DATE} feature by combing the \code{YEAR},
 \code{MONTH}, and \code{DAY} features, and makes sure the \code{LATITUDE} and
 \code{LONGITUDE} features are of type \code{numeric}.  Also converts the
-\code{DEATHS} and \code{EQ_PRIMARY} (Richter scale value) to type
-\code{numeric}.
+\code{DEATHS}, \code{TOTAL_DEATHS}, and \code{EQ_PRIMARY} (Richter scale
+value) to type \code{numeric}.
 
 For the \code{DATE} variable, note that R does not handle years before 1CE
 correctly (see documentation for \code{\link[base]{as.Date}}). This function

@@ -11,8 +11,8 @@
 #' particular, it creates a \code{DATE} feature by combing the \code{YEAR},
 #' \code{MONTH}, and \code{DAY} features, and makes sure the \code{LATITUDE} and
 #' \code{LONGITUDE} features are of type \code{numeric}.  Also converts the
-#' \code{DEATHS} and \code{EQ_PRIMARY} (Richter scale value) to type
-#' \code{numeric}.
+#' \code{DEATHS}, \code{TOTAL_DEATHS}, and \code{EQ_PRIMARY} (Richter scale
+#' value) to type \code{numeric}.
 #'
 #' For the \code{DATE} variable, note that R does not handle years before 1CE
 #' correctly (see documentation for \code{\link[base]{as.Date}}). This function
@@ -23,12 +23,13 @@
 #' @param data A data frame of NOAA significant earthquake data, similar to what
 #'   can be loaded with \code{data(quakes)}. At a minimum, the data needs to
 #'   have \code{YEAR}, \code{MONTH}, \code{DAY}, \code{LATITUDE},
-#'   \code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY} features.
+#'   \code{LONGITUDE}, \code{DEATHS}, \code{TOTAL_DEATHS}, and \code{EQ_PRIMARY}
+#'   features.
 #'
 #' @return A \code{tbl_df} with the same supplied data, but with
-#'   \code{LATITUDE}, \code{LONGITUDE}, \code{DEATHS}, and \code{EQ_PRIMARY}
-#'   converted from \code{character} to \code{numeric}, and a new column
-#'   \code{DATE}.
+#'   \code{LATITUDE}, \code{LONGITUDE}, \code{DEATHS}, \code{TOTAL_DEATHS}, and
+#'   \code{EQ_PRIMARY} converted from \code{character} to \code{numeric}, and a
+#'   new column \code{DATE}.
 #'
 #' @export
 #'
@@ -39,7 +40,7 @@
 eq_clean_data <- function(data) {
 
   required_vars <- c('LONGITUDE', 'LATITUDE', 'MONTH', 'DAY', 'YEAR',
-                     'DEATHS', 'EQ_PRIMARY')
+                     'DEATHS', 'TOTAL_DEATHS', 'EQ_PRIMARY')
   purrr::map(required_vars, function(rv) {
     if(!(rv %in% names(data))) {
       stop('Missing required variable: ', rv)
@@ -53,6 +54,7 @@ eq_clean_data <- function(data) {
       MONTH = ifelse(is.na(MONTH), 1, MONTH),
       DAY = ifelse(is.na(DAY), 1, DAY),
       DEATHS = as.numeric(DEATHS),
+      TOTAL_DEATHS = as.numeric(TOTAL_DEATHS),
       EQ_PRIMARY = as.numeric(EQ_PRIMARY))
 
   # as.Date doesn't handle BCE dates, so have to estimate it as best as possible
