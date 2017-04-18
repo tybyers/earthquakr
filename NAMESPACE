@@ -3,6 +3,8 @@
 export(eq_clean_data)
 export(eq_load_clean_data)
 export(eq_location_clean)
+import(ggplot2)
+import(leaflet)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,filter)
 importFrom(dplyr,mutate)
