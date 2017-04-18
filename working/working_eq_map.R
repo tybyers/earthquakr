@@ -3,7 +3,7 @@ library(leaflet)
 
 
 eq_map <- function(df, annot_col = 'DATE') {
-  #browser()
+
   df <- df %>%
     dplyr::mutate_(popup_col = as.name(annot_col))
 
