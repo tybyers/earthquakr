@@ -22,7 +22,7 @@
 #'
 #' quakes %>% dplyr::filter(COUNTRY %in% c('USA', 'UK')) %>%
 #'   dplyr::filter(DATE > '2000-01-01') %>%
-#'   ggplot() +
+#'   ggplot2::ggplot() +
 #'   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
 #'                     size = EQ_PRIMARY)) +
 #'   ggplot2::scale_size_continuous(name = 'Richter scale value') +
