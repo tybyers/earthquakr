@@ -5,6 +5,6 @@
 \alias{GeomTimeline}
 \title{GeomTimeline}
 \description{
-See \code{\link{geom_timeline}} for description
+See \code{\link{geom_timeline}} for description.
 }
 \keyword{datasets}
