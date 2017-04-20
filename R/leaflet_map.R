@@ -64,7 +64,7 @@ eq_map <- function(data, annot_col = 'DATE') {
 #'
 #' This function creates a vector of HTML-formatted labels using supplied
 #' \code{\link{quakes}} data.  The function creates lines of the format
-#' \code{\strong{Label:} value} from the following variables in the \code{quakes}
+#' \strong{Label:} \code{ value} from the following variables in the \code{quakes}
 #' data set:
 #' \itemize{
 #'   \item DATE
@@ -83,6 +83,7 @@ eq_map <- function(data, annot_col = 'DATE') {
 #' @export
 #'
 #' @examples
+#' library(dplyr); library(lubridate)
 #' ## Create a popup_text variable and use that for the label
 #' quakes <- eq_load_clean_data() %>%
 #'  dplyr::filter(COUNTRY == 'JAPAN') %>%
