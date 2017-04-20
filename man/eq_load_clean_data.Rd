@@ -23,5 +23,5 @@ you, use this function to save a few keystrokes.
 library(dplyr)
 quakes1 <- eq_load_clean_data()
 # is equivalent to:
-quakes2 <- data(quakes) \%>\% eq_clean_data() \%>\% eq_location_clean()
+quakes2 <- quakes \%>\% eq_clean_data() \%>\% eq_location_clean()
 }

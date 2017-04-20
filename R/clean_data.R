@@ -157,7 +157,7 @@ eq_location_clean <- function(data) {
 #' library(dplyr)
 #' quakes1 <- eq_load_clean_data()
 #' # is equivalent to:
-#' quakes2 <- data(quakes) %>% eq_clean_data() %>% eq_location_clean()
+#' quakes2 <- quakes %>% eq_clean_data() %>% eq_location_clean()
 eq_load_clean_data <- function() {
   df <- quakes %>%
     eq_clean_data() %>%
