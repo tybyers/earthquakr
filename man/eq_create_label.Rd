@@ -20,7 +20,7 @@ label to be used in \code{\link{eq_map}}.
 \details{
 This function creates a vector of HTML-formatted labels using supplied
 \code{\link{quakes}} data.  The function creates lines of the format
-\code{\strong{Label:} value} from the following variables in the \code{quakes}
+\strong{Label:} \code{ value} from the following variables in the \code{quakes}
 data set:
 \itemize{
   \item DATE
@@ -32,6 +32,7 @@ data set:
 Any of the above variables with missing/NA values are skipped in the label.
 }
 \examples{
+library(dplyr); library(lubridate)
 ## Create a popup_text variable and use that for the label
 quakes <- eq_load_clean_data() \%>\%
  dplyr::filter(COUNTRY == 'JAPAN') \%>\%
