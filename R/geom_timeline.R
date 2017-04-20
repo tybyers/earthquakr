@@ -48,7 +48,10 @@ geom_timeline <- function(mapping = NULL,
     )
 }
 
-#' @rdname ggplot2-ggproto
+#' GeomTimeline
+#'
+#' See \code{\link{geom_timeline}} for description.
+#'
 #' @format NULL
 #' @usage NULL
 #' @export
