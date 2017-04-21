@@ -13,12 +13,23 @@
 #' @param na.rm See \code{ggplot2} \code{\link[ggplot2]{layer}}
 #' @param show.legend See \code{ggplot2} \code{\link[ggplot2]{layer}}
 #' @param inherit.aes See \code{ggplot2} \code{\link[ggplot2]{layer}}
-#' @param x Required, recommend \code{DATE}
-#' @param label Required, recommend \code{LOCATION_NAME}
-#' @param magnitude Required, recommend \code{EQ_PRIMARY} (magnitude)
-#' @param n_max Optional, default 5. Top \code{n} earthquakes to label,
-#'   sorted by magnitude.
 #' @param ... other arguments passed on to \code{\link{layer}}.
+#'
+#' @section Aesthetics:
+#' \code{geom_timeline_label} undertands the following aesthetics (required
+#' aesthetics are in bold):
+#' \itemize{
+#'  \item \strong{x}: recommend \code{DATE}
+#'  \item \strong{label}: recommend \code{LOCATION_NAME}
+#'  \item \strong{magnitude}: recommend \code{EQ_PRIMARY}
+#'  \item y: recommend \code{COUNTRY}
+#'  \item n_max: default 5. Top \code{n} earthquakes to label,
+#'        sorted by magnitude.
+#'  \item color
+#'  \item linetype
+#'  \item size
+#'  \item alpha
+#' }
 #'
 #' @export
 #'
@@ -109,6 +120,6 @@ GeomTimelineLabel <-
       data$colour <- 'black'
       g2 <- ggplot2::GeomText$draw_panel(unique(data), panel_scales, coord)
 
-      ggplot2:::ggname('geom_timeline_label', grobTree(g1, g2))
+      ggplot2:::ggname('geom_timeline_label', grid::grobTree(g1, g2))
     }
   )

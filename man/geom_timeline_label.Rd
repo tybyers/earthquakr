@@ -24,15 +24,6 @@ geom_timeline_label(mapping = NULL, data = NULL, stat = "identity",
 \item{inherit.aes}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
 
 \item{...}{other arguments passed on to \code{\link{layer}}.}
-
-\item{x}{Required, recommend \code{DATE}}
-
-\item{label}{Required, recommend \code{LOCATION_NAME}}
-
-\item{magnitude}{Required, recommend \code{EQ_PRIMARY} (magnitude)}
-
-\item{n_max}{Optional, default 5. Top \code{n} earthquakes to label,
-sorted by magnitude.}
 }
 \description{
 \code{geom_timeline_label} works best when used with
@@ -41,6 +32,24 @@ magnitude, with a specified label field.  By default, the labels are for
 the top 5 earthquakes for each country specified, however, the user may
 adjust this with the \code{n_max} aesthetic.
 }
+\section{Aesthetics}{
+
+\code{geom_timeline_label} undertands the following aesthetics (required
+aesthetics are in bold):
+\itemize{
+ \item \strong{x}: recommend \code{DATE}
+ \item \strong{label}: recommend \code{LOCATION_NAME}
+ \item \strong{magnitude}: recommend \code{EQ_PRIMARY}
+ \item y: recommend \code{COUNTRY}
+ \item n_max: default 5. Top \code{n} earthquakes to label,
+       sorted by magnitude.
+ \item color
+ \item linetype
+ \item size
+ \item alpha
+}
+}
+
 \examples{
 library(dplyr); library(ggplot2)
 quakes <- eq_load_clean_data()
