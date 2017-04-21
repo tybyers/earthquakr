@@ -2,7 +2,8 @@ Package: earthquakr
 Type: Package
 Title: NOAA Significant Earthquake data cleaning, timelining, and mapping
 Version: 0.0.0.9000
-Authors@R: person('Tyler', 'Byers', 'tybyers@gmail.com', c('aut', 'cre'))
+Authors@R: person('Tyler', 'Byers', email = 'tybyers@gmail.com', 
+                 role = c('aut', 'cre'))
 Description: This is a small package for cleaning, timelining, 
     and mapping NOAA Significant Earthquake data. It was built
     to satisfy requirements for the Capstone project for the Coursera
@@ -16,6 +17,6 @@ Suggests: testthat (>= 1.0.2),
 Imports: dplyr (>= 0.5),
     ggplot2 (>= 2.2.1),
     leaflet (>= 1.1.0),
-    purrr (0.2.2),
-    stringr (1.2.0)
+    purrr (>= 0.2.2),
+    stringr (>= 1.2.0)
 RoxygenNote: 6.0.1
