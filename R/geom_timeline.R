@@ -15,12 +15,21 @@
 #' @param na.rm See \code{ggplot2} \code{\link[ggplot2]{layer}}
 #' @param show.legend See \code{ggplot2} \code{\link[ggplot2]{layer}}
 #' @param inherit.aes See \code{ggplot2} \code{\link[ggplot2]{layer}}
-#' @param x Required, recommend \code{DATE}
-#' @param y Optional, recommend \code{COUNTRY}
-#' @param size Optional, recommend \code{EQ_PRIMARY} (magnitude)
-#' @param color Optional, recommend \code{TOTAL_DEATHS}
 #' @param ... other arguments passed on to \code{\link{layer}}.
 #'
+#' @section Aesthetics:
+#' \code{geom_timeline} undertands the following aesthetics (required
+#' aesthetics are in bold):
+#' \itemize{
+#'  \item \strong{x}: recommend \code{DATE}
+#'  \item y: recommend \code{COUNTRY}
+#'  \item size: recommend \code{EQ_PRIMARY}
+#'  \item color: recommend \code{TOTAL_DEATHS}
+#'  \item alpha
+#'  \item shape
+#'  \item stroke
+#'  \item fill
+#' }
 #' @export
 #'
 #' @examples

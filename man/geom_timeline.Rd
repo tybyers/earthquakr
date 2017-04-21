@@ -24,14 +24,6 @@ geom_timeline(mapping = NULL, data = NULL, stat = "identity",
 \item{inherit.aes}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
 
 \item{...}{other arguments passed on to \code{\link{layer}}.}
-
-\item{x}{Required, recommend \code{DATE}}
-
-\item{y}{Optional, recommend \code{COUNTRY}}
-
-\item{size}{Optional, recommend \code{EQ_PRIMARY} (magnitude)}
-
-\item{color}{Optional, recommend \code{TOTAL_DEATHS}}
 }
 \description{
 \code{geom_timeline} shows a timeline of NOAA Significant earthquakes,
@@ -43,6 +35,22 @@ the color is related to the total number of deaths.
 It is highly recommended that this geom is not used in isolation. For
 best results, use it with the \code{\link{eq_timeline}} wrapper function.
 }
+\section{Aesthetics}{
+
+\code{geom_timeline} undertands the following aesthetics (required
+aesthetics are in bold):
+\itemize{
+ \item \strong{x}: recommend \code{DATE}
+ \item y: recommend \code{COUNTRY}
+ \item size: recommend \code{EQ_PRIMARY}
+ \item color: recommend \code{TOTAL_DEATHS}
+ \item alpha
+ \item shape
+ \item stroke
+ \item fill
+}
+}
+
 \examples{
 library(dplyr); library(ggplot2)
 quakes <- eq_load_clean_data()
