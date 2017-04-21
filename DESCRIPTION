@@ -1,19 +1,21 @@
 Package: earthquakr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: NOAA Significant Earthquake data cleaning, timelining, and mapping
 Version: 0.0.0.9000
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: person('Tyler', 'Byers', 'tybyers@gmail.com', c('aut', 'cre'))
+Description: This is a small package for cleaning, timelining, 
+    and mapping NOAA Significant Earthquake data. It was built
+    to satisfy requirements for the Capstone project for the Coursera
+    Mastering Software Development in R five-course specialization.
+Depends: R (>= 3.3.3)
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat,
-    lubridate
-Imports: dplyr,
-    ggplot2,
-    leaflet,
-    purrr,
-    stringr,
+Suggests: testthat (>= 1.0.2),
+    lubridate (>= 1.6.0)
+Imports: dplyr (>= 0.5),
+    ggplot2 (>= 2.2.1),
+    leaflet (>= 1.1.0),
+    purrr (0.2.2),
+    stringr (1.2.0)
 RoxygenNote: 6.0.1
