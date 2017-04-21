@@ -9,6 +9,20 @@ geom_timeline(mapping = NULL, data = NULL, stat = "identity",
   inherit.aes = TRUE, ...)
 }
 \arguments{
+\item{mapping}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{data}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{stat}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{position}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{na.rm}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{show.legend}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
+\item{inherit.aes}{See \code{ggplot2} \code{\link[ggplot2]{layer}}}
+
 \item{...}{other arguments passed on to \code{\link{layer}}.}
 
 \item{x}{Required, recommend \code{DATE}}
@@ -30,15 +44,16 @@ It is highly recommended that this geom is not used in isolation. For
 best results, use it with the \code{\link{eq_timeline}} wrapper function.
 }
 \examples{
-library(dplyr)
+library(dplyr); library(ggplot2)
 quakes <- eq_load_clean_data()
 
-quakes \%>\% dplyr::filter(COUNTRY \%in\% c('USA', 'UK')) \%>\%
+quakes \%>\%
+  dplyr::filter(COUNTRY \%in\% c('USA', 'UK')) \%>\%
   dplyr::filter(DATE > '2000-01-01') \%>\%
-  ggplot2::ggplot() +
+  ggplot() +
   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
                     size = EQ_PRIMARY)) +
-  ggplot2::scale_size_continuous(name = 'Richter scale value') +
-  ggplot2::scale_color_continuous(name = '# of Deaths') +
+  scale_size_continuous(name = 'Richter scale value') +
+  scale_color_continuous(name = '# of Deaths') +
   theme_eq()
 }

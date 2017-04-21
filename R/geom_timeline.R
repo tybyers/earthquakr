@@ -8,6 +8,13 @@
 #' It is highly recommended that this geom is not used in isolation. For
 #' best results, use it with the \code{\link{eq_timeline}} wrapper function.
 #'
+#' @param mapping See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param data See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param stat See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param position See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param na.rm See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param show.legend See \code{ggplot2} \code{\link[ggplot2]{layer}}
+#' @param inherit.aes See \code{ggplot2} \code{\link[ggplot2]{layer}}
 #' @param x Required, recommend \code{DATE}
 #' @param y Optional, recommend \code{COUNTRY}
 #' @param size Optional, recommend \code{EQ_PRIMARY} (magnitude)
@@ -17,16 +24,17 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
+#' library(dplyr); library(ggplot2)
 #' quakes <- eq_load_clean_data()
 #'
-#' quakes %>% dplyr::filter(COUNTRY %in% c('USA', 'UK')) %>%
+#' quakes %>%
+#'   dplyr::filter(COUNTRY %in% c('USA', 'UK')) %>%
 #'   dplyr::filter(DATE > '2000-01-01') %>%
-#'   ggplot2::ggplot() +
+#'   ggplot() +
 #'   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
 #'                     size = EQ_PRIMARY)) +
-#'   ggplot2::scale_size_continuous(name = 'Richter scale value') +
-#'   ggplot2::scale_color_continuous(name = '# of Deaths') +
+#'   scale_size_continuous(name = 'Richter scale value') +
+#'   scale_color_continuous(name = '# of Deaths') +
 #'   theme_eq()
 geom_timeline <- function(mapping = NULL,
                           data = NULL,
