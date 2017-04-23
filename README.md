@@ -21,5 +21,5 @@ For my fellow Coursera students, please remember that using or "borrowing" this 
 ## Known Issues
 
   * Functions as currently written will produce Travis Notes and/or warnings due to using nonstandard evaluation instead of standard evaluation throughout the functions.  
-  * The Vignette is definitely in "draft" status.  
+  * The Vignette is in "draft" status, more robust documentation needed. 
   * Some of my examples in the documentation are producing errors when building the project.  
