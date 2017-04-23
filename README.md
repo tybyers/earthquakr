@@ -18,6 +18,10 @@ Installation instructions to follow once the package is building correctly and p
 
 For my fellow Coursera students, please remember that using or "borrowing" this code in order to complete your own project is a violation of the Coursera Honor Code. In past courses in this specialization, I reported several individuals who clearly copied my work, which I noticed when I was grading their assignments.  I will not hesitate to do the same for this Capstone project.  
 
+## Vignette
+
+You may read the interactive, (draft) vignette at my personal blog site, at: http://datawrangl.com/assets/about-earthquakr-draft.html 
+
 ## Known Issues
 
   * Functions as currently written will produce Travis Notes and/or warnings due to using nonstandard evaluation instead of standard evaluation throughout the functions.  
