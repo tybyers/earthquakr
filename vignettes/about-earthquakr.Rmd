@@ -1,0 +1,95 @@
+---
+title: "earthquakr: Visualizing NOAA's Significant Earthquakes"
+author: "Tyler Byers"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{About earthquakr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This is a *draft* vignette for the `earthquakr` package, drafted for the
+mid-term status check due on April 23, 2017.
+
+## Necessary Packages
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(fig.width = 6, fig.height = 5)
+```
+
+```{r message = FALSE}
+library(earthquakr); library(tidyverse); library(ggplot2)
+```
+
+
+## Load Data from Package
+
+### The Easy Way
+
+Note that these data are only good 
+```{r}
+quakes <- eq_load_clean_data()
+```
+
+### The Hard Way
+
+```{r}
+quakes <- earthquakr::quakes # loads quakes data with data set
+quakes <- quakes %>%
+  eq_clean_data() %>%
+  eq_location_clean()
+```
+
+
+## Load and Clean your Own Data
+
+If you want updated data, download from... and clean, data
+
+(FINISH ME!)
+
+
+## Plot Timeline of Data
+
+### Filter Data and Add Geoms
+
+### User Wrapper Function for Ease of Use
+
+#### One Country, No Labels
+```{r}
+quakes %>% eq_timeline(countries = 'USA', date_min = as.Date('1995-01-01'),
+                      date_max = as.POSIXct('2015-01-01'), label_n = 0)
+```
+
+#### Multiple Countries, Labels
+
+```{r}
+quakes %>% eq_timeline(countries = c('JAPAN', 'HAITI'),
+                      date_min = '2000-01-01', date_max = '2017-01-01',
+                      label_n = 5)
+```
+
+
+## Plot Map
+
+### Basic Annotations
+
+```{r}
+quakes <- eq_load_clean_data() %>%
+ dplyr::filter(COUNTRY == 'JAPAN') %>%
+ dplyr::filter(lubridate::year(DATE) >= 2000)
+
+eq_map(quakes, annot_col = 'DATE')
+```
+
+### More Useful Annotations
+
+```{r}
+quakes <- eq_load_clean_data() %>%
+ dplyr::filter(COUNTRY == 'JAPAN') %>%
+ dplyr::filter(lubridate::year(DATE) >= 2000) %>%
+ dplyr::mutate(popup_text = eq_create_label(.))
+
+eq_map(quakes, annot_col = 'popup_text')
+```
+

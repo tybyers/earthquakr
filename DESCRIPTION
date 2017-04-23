@@ -13,10 +13,13 @@ License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat (>= 1.0.2),
-    lubridate (>= 1.6.0)
+    lubridate (>= 1.6.0),
+    knitr,
+    rmarkdown
 Imports: dplyr (>= 0.5),
     ggplot2 (>= 2.2.1),
     leaflet (>= 1.1.0),
     purrr (>= 0.2.2),
     stringr (>= 1.2.0)
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
