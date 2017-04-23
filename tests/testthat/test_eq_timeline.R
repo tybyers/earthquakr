@@ -1,20 +1,27 @@
-context('geom_timeline')
+context('eq_timeline shortcut')
 
 test_that('geom_timeline works, allows 2 countries', {
   quakes <- eq_load_clean_data()
 
-  p <- quakes %>% dplyr::filter(COUNTRY %in% c('RUSSIA', 'JAPAN')) %>%
-    dplyr::filter(DATE > '2000-01-01') %>%
-    ggplot() +
-    geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
-                      size = EQ_PRIMARY))
+  p1 <- eq_timeline(quakes)
+  expect_s3_class(p1, 'ggplot')
+  out1 <- layer_data(p1)
+  expect_length(p1$layers, 1)
+  expect_length(unique(out1$group), 1)
+  #expect_true()
 
-  expect_s3_class(p, 'ggplot')
+  # can handle lowercase country names and 5 labels:
+  p2 <- eq_timeline(quakes, countries = c('USA', 'canada'), label_n = 5)
+  expect_length(p2$layers, 2)
+  out2 <- layer_data(p2, 2)
+  expect_true('label' %in% names(out2))
 
-  out <- layer_data(p)
-
-  expect_length(unique(out$y), 2)
-
-  expect_equal(sum(out$group == out$y), nrow(out))
+  # date range change works
+  p3 <- eq_timeline(quakes, countries = c('USA', 'canada'),
+                    date_min = '1950-01-01', label_n = 5)
+  out3 <- layer_data(p3, 2)
+  expect_gt(nrow(out3), nrow(out2))
 
 })
+
+
