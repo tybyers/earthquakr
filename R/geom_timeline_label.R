@@ -44,7 +44,7 @@
 #'   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
 #'                     size = EQ_PRIMARY)) +
 #'   geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
-#'                          label = LOCATION_NAME, n_max = 5))
+#'                          label = LOCATION_NAME, n_max = 5)) +
 #'   scale_size_continuous(name = 'Richter scale value') +
 #'   scale_color_continuous(name = '# of Deaths') +
 #'   theme_eq()
