@@ -15,7 +15,7 @@ theme_eq(base_size = 11, base_family = "sans")
 Makes your earthquakr timeline plots look pretty.
 }
 \examples{
-library(dplyr)
+library(dplyr); library(ggplot2)
 quakes <- eq_load_clean_data()
 
 quakes \%>\% dplyr::filter(COUNTRY \%in\% c('USA', 'UK')) \%>\%

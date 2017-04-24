@@ -47,6 +47,7 @@ it gives up control in specifics of how the timelines are displayed.
 \examples{
 # An example with a single country and no labels, showing two
 # different classes of date* parameters being passed in.
+library(ggplot2); library(dplyr)
 quakes <- eq_load_clean_data()
 quakes \%>\% eq_timeline(countries = 'USA', date_min = as.Date('1995-01-01'),
                       date_max = as.POSIXct('2015-01-01'), label_n = 0)
