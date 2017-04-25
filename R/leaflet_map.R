@@ -113,7 +113,7 @@ eq_create_label <- function(data) {
   }
 
   data <- data %>%
-    dplyr::mutate(popup_text = purrr::pmap_chr(
+    dplyr::mutate_(popup_text = ~purrr::pmap_chr(
       list(LOCATION_NAME, EQ_PRIMARY,
            TOTAL_DEATHS, DATE),
       labeling

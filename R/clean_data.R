@@ -48,18 +48,19 @@ eq_clean_data <- function(data) {
   })
 
   data <- data %>%
-    dplyr::mutate(
-      LONGITUDE = as.numeric(LONGITUDE),
-      LATITUDE = as.numeric(LATITUDE),
-      MONTH = ifelse(is.na(MONTH), 1, MONTH),
-      DAY = ifelse(is.na(DAY), 1, DAY),
-      DEATHS = as.numeric(DEATHS),
-      TOTAL_DEATHS = as.numeric(TOTAL_DEATHS),
-      EQ_PRIMARY = as.numeric(EQ_PRIMARY))
+    dplyr::mutate_(
+      LONGITUDE = ~as.numeric(LONGITUDE),
+      LATITUDE = ~as.numeric(LATITUDE),
+      MONTH = ~ifelse(is.na(MONTH), 1, MONTH),
+      DAY = ~ifelse(is.na(DAY), 1, DAY),
+      DEATHS = ~as.numeric(DEATHS),
+      TOTAL_DEATHS = ~as.numeric(TOTAL_DEATHS),
+      EQ_PRIMARY = ~as.numeric(EQ_PRIMARY))
 
   # as.Date doesn't handle BCE dates, so have to estimate it as best as possible
   data <- data %>%
-    dplyr::mutate(DATE = purrr::pmap(list(YEAR, MONTH, DAY), function(y, m, d) {
+    dplyr::mutate_(DATE = ~purrr::pmap(list(YEAR, MONTH, DAY),
+                                      function(y, m, d) {
       if (y < 0) {
         # numeric date for first DAY of CE
         first_date <-
@@ -83,8 +84,8 @@ eq_clean_data <- function(data) {
       }
       date
     })) %>%
-    dplyr::mutate(DATE = unlist(DATE), # date comes out of purrr::map as numeric
-                  DATE = as.Date(DATE, origin = '1970-01-01'))
+    dplyr::mutate_(DATE = ~unlist(DATE), # date comes out of purrr::map as numeric
+                  DATE = ~as.Date(DATE, origin = '1970-01-01'))
 
   data
 }
@@ -126,14 +127,14 @@ eq_location_clean <- function(data) {
   })
 
   data <- data %>%
-    dplyr::mutate(
+    dplyr::mutate_(
       LOCATION_NAME =
-        purrr::map2_chr(COUNTRY, LOCATION_NAME,
+        ~purrr::map2_chr(COUNTRY, LOCATION_NAME,
                         function(COUNTRY, LOCATION_NAME) {
                           gsub(paste0(COUNTRY, ":"), '', LOCATION_NAME)
                         }),
-      LOCATION_NAME = stringr::str_trim(LOCATION_NAME),
-      LOCATION_NAME = stringr::str_to_title(LOCATION_NAME)
+      LOCATION_NAME = ~stringr::str_trim(LOCATION_NAME),
+      LOCATION_NAME = ~stringr::str_to_title(LOCATION_NAME)
     )
 
   data
@@ -159,7 +160,8 @@ eq_location_clean <- function(data) {
 #' # is equivalent to:
 #' quakes2 <- quakes %>% eq_clean_data() %>% eq_location_clean()
 eq_load_clean_data <- function() {
-  df <- quakes %>%
+  eq <- get('quakes')
+  df <- eq %>%
     eq_clean_data() %>%
     eq_location_clean()
   df
