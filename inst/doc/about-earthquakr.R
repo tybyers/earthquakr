@@ -4,7 +4,8 @@ knitr::opts_chunk$set(fig.width = 6, fig.height = 5,
 
 ## ----message = FALSE-----------------------------------------------------
 library(earthquakr) 
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(readr)
 library(lubridate)
 

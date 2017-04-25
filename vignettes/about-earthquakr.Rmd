@@ -25,7 +25,8 @@ knitr::opts_chunk$set(fig.width = 6, fig.height = 5,
 To work through these examples, the following packages need to be installed and loaded:
 ```{r message = FALSE}
 library(earthquakr) 
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(readr)
 library(lubridate)
 ```
