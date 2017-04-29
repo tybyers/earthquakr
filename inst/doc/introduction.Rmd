@@ -9,20 +9,26 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This is a *draft* vignette for the `earthquakr` package, drafted for the mid-term status check due on April 23, 2017.  Expect a more robust vignette for the final project due by May 7.
-
-## Installing earthquakr
-
-To install the earthquakr, the user will need to use the `devtools::install_github` function. More details will be provided once package development is complete.
-
-## Necessary Packages
-
 ```{r echo=FALSE}
 knitr::opts_chunk$set(fig.width = 6, fig.height = 5,
                       fig.align = 'center')
 ```
 
+The `earthquakr` package is a small R package for cleaning, timelining, and mapping [NOAA Significant Earthquake data](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1).  This R package was built to satisfy the requirements of the Capstone project for the [Coursera](http://www.coursera.org) [Mastering Software Development in R](https://www.coursera.org/specializations/r) 5-course specialization.
+
+## Installing earthquakr
+
+To install the `earthquakr` package, the user must install the `devtools` package.  Then, to download and install the `earthquakr` package, use the following commands:
+
+```{r eval=FALSE}
+devtools::install_github('tybyers/earthquakr')
+library(earthquakr)
+```
+
+## Necessary Packages
+
 To work through these examples, the following packages need to be installed and loaded:
+
 ```{r message = FALSE}
 library(earthquakr) 
 library(dplyr)
@@ -33,7 +39,7 @@ library(lubridate)
 
 ## Loading Data
 
-The NOAA Significant Earthquake dataset is provided with this package, using the data set name `quakes`.  The data for this package were pulled on April 1, 2017.  If you wish to use data updated after this date, please see the dataset documentation (`?earthquakr:quakes`) for source.
+The NOAA Significant Earthquake dataset, as it existed on April 1, 2017, is provided with this package, using the data set name `quakes`.  If you wish to use data updated after this date, please see the dataset documentation (`?earthquakr:quakes`) for source.
 
 ### Load and Clean Package Data
 
@@ -48,7 +54,6 @@ quakes <- quakes %>%
   eq_location_clean()
 tail(quakes)
 ```
-
 
 ### Single Step, Using Package Data
 
@@ -72,12 +77,13 @@ quakes_from_raw_clean <- quakes_from_raw %>%
 tail(quakes_from_raw_clean)
 ```
 
-
 ## Plot Timeline of Data
 
-This package includes a "timeline" capability to visualize countries' significant earthquakes.
+This package includes a "timeline" capability to visualize countries' significant earthquakes.  The timeline, which is a `ggplot2` geom called `geom_timeline`, when used correctly shows the timeline of a country's significant earthquakes, with points colored and sized by number of deaths and Richter scale strength, respectively.  The timeline plots years on the x-axis and any number of countries stacked on the y-axis.
 
-More to be added to this section's documentation...
+There is a second `ggplot2` geom in this package, called `geom_timeline_label`, that will label the strongest earthquakes on the timeline for each country.
+
+Additionally, a `ggplot2` theme, `theme_eq`, is provided with this package, which will make your charts much more attractive (in our humble opinion!).
 
 ### Timeline Geoms
 
@@ -87,7 +93,12 @@ Load clean data to be used for all charts below:
 quakes <- eq_load_clean_data()
 ```
 
-Basic timeline geom, one country:
+The following example shows how to make a simple timeline geom for a single country.  Notice that the `quakes` data must be filtered by `COUNTRY` and `DATE` variables.  For best results, you should use the following `aes = variable` combinations:  
+
+* `x = DATE`
+* `y = COUNTRY`
+* `color = TOTAL_DEATHS`
+* `size = EQ_PRIMARY`
 
 ```{r}
 quakes %>%
@@ -100,7 +111,7 @@ quakes %>%
   scale_color_continuous(name = '# of Deaths')
 ```
 
-Basic timeline geom, two countries:
+To create a basic timeline with two countries, simply change how you filter the `COUNTRY` value:  
 
 ```{r}
 quakes %>%
@@ -116,7 +127,13 @@ quakes %>%
 
 ### Timeline and Label Geoms
 
-Timeline and label geoms with 2 countries:
+To add labels to the timelines, use the `geom_timeline_label` geom with the following `aes = variable` combinations:
+
+* `x = DATE`
+* `y = COUNTRY`
+* `magnitude = EQ_PRIMARY`
+* `label = LOCATION_NAME`
+* `n_max = <integer, suggest 5>`
 
 ```{r}
 quakes %>%
@@ -125,7 +142,7 @@ quakes %>%
   ggplot() +
   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
                     size = EQ_PRIMARY)) +
-   geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
+  geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
                          label = LOCATION_NAME, n_max = 5)) +
   scale_size_continuous(name = 'Richter scale value') +
   scale_color_continuous(name = '# of Deaths')
@@ -134,7 +151,7 @@ quakes %>%
 
 ### Timeline and Label Geoms with theme_eq
 
-Also added a new `ggplot2` theme: `theme_eq`.  This makes the plots look much nicer and formats them for easier reading:
+To make the charts look slightly more attractive, use the included `ggplot2` theme: `theme_eq`.  
 
 ```{r}
 quakes %>%
@@ -143,7 +160,7 @@ quakes %>%
   ggplot() +
   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
                     size = EQ_PRIMARY)) +
-   geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
+  geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
                          label = LOCATION_NAME, n_max = 5)) +
   scale_size_continuous(name = 'Richter scale value') +
   scale_color_continuous(name = '# of Deaths') +
@@ -153,7 +170,7 @@ quakes %>%
 
 ### Use Wrapper Function for Ease of Use
 
-That is an awful lot of typing to get these charts. So, we created a simple `eq_timeline` wrapper function to make a nice labeled (or not!) chart with the default `aes` values and theme selection.  This is much easier than typing in all of the above.
+All the above can be an awful lot of typing to get these charts. So, this package includes a handy `eq_timeline` wrapper function to make a nice labeled (or not!) chart with the default `aes` values and theme selection.  This is much easier than typing in all of the above.
 
 #### One Country, No Labels
 
@@ -172,9 +189,9 @@ Here is an example of multiple countries and up to 5 labels per country.
 
 ```{r}
 quakes %>% eq_timeline(countries = c('NEW ZEALAND', 'HAITI'),
-                      date_min = '2000-01-01', 
-                      date_max = '2015-01-01',
-                      label_n = 5)
+                       date_min = '2000-01-01', 
+                       date_max = '2015-01-01',
+                       label_n = 5)
 ```
 
 
@@ -195,7 +212,7 @@ quakes %>%
 
 ### More Useful Annotations
 
-If you'd like more useful annotations, first call `quakes <- quakes %>% dplyr::mutate(popup_text = eq_create_label(.))` to create a data column with formatted HTML for more useful quakes information.
+If you'd like more useful annotations, first call `quakes <- quakes %>% dplyr::mutate(popup_text = eq_create_label(.))` to create a data column with formatted HTML for more useful quakes information, and then call the `eq_map` function:
 
 ```{r}
 quakes %>%
@@ -205,11 +222,8 @@ quakes %>%
   eq_map(annot_col = 'popup_text')
 ```
 
-
 ## Future Developments
 
-For the final assignment due in two weeks, I will clean up this vignette and my code based on any feedback and Travis build requirements.
+Following the conclusion of the Coursera Specialization with the submission of this package, I will likely do very little additional development on this package.
 
-There will likely be very little additional development on this package.
-
-Future plans for this package include making an R Shiny app with the `flexdashboard` package, and using this package as an underpinning for making interactive plots and timelines, and posting on my blog.
+However, future plans for use of this package include making an R Shiny app with the `flexdashboard` package, and using this package as an underpinning for making interactive plots and timelines, and posting on my blog.

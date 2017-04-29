@@ -2,6 +2,10 @@
 knitr::opts_chunk$set(fig.width = 6, fig.height = 5,
                       fig.align = 'center')
 
+## ----eval=FALSE----------------------------------------------------------
+#  devtools::install_github('tybyers/earthquakr')
+#  library(earthquakr)
+
 ## ----message = FALSE-----------------------------------------------------
 library(earthquakr) 
 library(dplyr)
@@ -58,7 +62,7 @@ quakes %>%
   ggplot() +
   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
                     size = EQ_PRIMARY)) +
-   geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
+  geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
                          label = LOCATION_NAME, n_max = 5)) +
   scale_size_continuous(name = 'Richter scale value') +
   scale_color_continuous(name = '# of Deaths')
@@ -70,7 +74,7 @@ quakes %>%
   ggplot() +
   geom_timeline(aes(x = DATE, y = COUNTRY, color = TOTAL_DEATHS,
                     size = EQ_PRIMARY)) +
-   geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
+  geom_timeline_label(aes(x = DATE, y = COUNTRY, magnitude = EQ_PRIMARY,
                          label = LOCATION_NAME, n_max = 5)) +
   scale_size_continuous(name = 'Richter scale value') +
   scale_color_continuous(name = '# of Deaths') +
@@ -84,9 +88,9 @@ quakes %>% eq_timeline(countries = 'NEW ZEALAND',
 
 ## ------------------------------------------------------------------------
 quakes %>% eq_timeline(countries = c('NEW ZEALAND', 'HAITI'),
-                      date_min = '2000-01-01', 
-                      date_max = '2015-01-01',
-                      label_n = 5)
+                       date_min = '2000-01-01', 
+                       date_max = '2015-01-01',
+                       label_n = 5)
 
 ## ------------------------------------------------------------------------
 quakes %>%
