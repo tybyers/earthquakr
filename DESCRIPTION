@@ -1,7 +1,7 @@
 Package: earthquakr
 Type: Package
 Title: NOAA Significant Earthquake data cleaning, timelining, and mapping
-Version: 0.0.0.9000
+Version: 0.0.1.0
 Authors@R: person('Tyler', 'Byers', email = 'tybyers@gmail.com', 
                  role = c('aut', 'cre'))
 Description: This is a small package for cleaning, timelining, 
